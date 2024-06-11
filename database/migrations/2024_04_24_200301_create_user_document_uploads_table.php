@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_document_uploads', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('contact_number', 10);
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->integer('user_id');
+            //$table->foreignId('user_id')->constrained('users')->OnUpdate('cascade')->onDelete('cascade');
+            $table->string('description');
+            $table->string('image_path');
+            $table->string('reminder_email_date');
+            $table->string('actual_date');
             $table->enum('status',['Inactive','Active'])->default('Active');
             $table->enum('is_deleted',['True','False'])->default('False');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_document_uploads');
     }
 };
